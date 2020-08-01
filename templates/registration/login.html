@@ -1,16 +1,33 @@
 {% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-  <h2>Login</h2>
+  <div class="login-page">
+    <div class="card auth-card">
+      <div class="card-header">
+        <h5>Login</h5>
+      </div>
+      <div class="card-body p-2">
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input class="btn btn-primary" type="submit" value="Login">
+          <div class="mt-2 text-muted small">
+            Forgot password? <a href="{% url 'password_reset' %}">Reset</a>
+          </div>
+        </form>
+        <div class="my-3 d-flex flex-column justify-content-center">
+          <p class="font-weight-bold">OR</p>
+          <div>
+            <a class="btn btn-dark" href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+          </div>
+        </div>
+        <div class="mb-2 text-muted small">
+          Don't have an Acoount? <a href="{% url 'register' %}">Register</a>
+        </div>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Login">
-  </form>
-
-  <a href="{% url 'dashboard' %}">Back to dashboard</a>
-  <a href="{% url 'register' %}">Register</a>
-  <a href="{% url 'password_reset' %}">Reset password</a>
-  <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a>
+        <!-- <a href="{% url 'dashboard' %}">Back to dashboard</a> -->
+      </div>
+    </div>
+  </div>
 {% endblock %}

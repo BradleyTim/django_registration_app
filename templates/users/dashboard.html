@@ -1,14 +1,27 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-  Hello, {{ user.username|default:'Guest' }}!
-
-  <div>
-    {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}">Logout</a>
-        <a href="{% url 'password_change' %}">Change password</a>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
+  <div class="card auth-card">
+    <div class="card-header">
+      <h5>Profile</h5>
+    </div>
+    <div class="card-body p-2">
+      <div>
+        <p class="lead">
+          Hello, {{ user.username|default:'Guest' }}!
+          Welcome to your Dashboard
+        </p>
+        {% if user.is_authenticated %}
+            <div>
+              <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
+            </div>
+            <div>
+              <a class="my-2 small" href="{% url 'password_change' %}">Change password</a>
+            </div>
+        {% else %}
+            <a class="btn btn-success" href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </div>
+    </div>
   </div>
 {% endblock %}
